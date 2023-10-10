@@ -13,7 +13,7 @@
 Rtype::Rtype()
 {
     engine.init();
-    std::ifstream inputFile("Client/SpritesMooves/ground.json");
+    std::ifstream inputFile("Rtype/SpritesMooves/ground.json");
     if (inputFile.is_open())
     {
         inputFile >> jsonData;
@@ -86,6 +86,7 @@ Rtype::Rtype()
     entitySpaceship->addComponent(new Haze::Hitbox({{0, 0, 32, 14}}));
     entitySpaceship->addComponent(new Haze::HitboxDisplay());
     entitySpaceship->addComponent(new Haze::Collision("player", infos));
+
     entitySpaceship->addComponent(new Haze::OnKeyPressed([this](int i, std::vector<Haze::InputType> components)
                                                          {
         if (std::find(components.begin(), components.end(), Haze::InputType::KEY_ENTER_INPUT) != components.end()) {
@@ -144,6 +145,7 @@ Rtype::Rtype()
     entityEnnemy->addComponent(ennemySprite);
 
     entityWindow->addComponent(window);
+
 #ifdef USE_SFML
     window->window.setFramerateLimit(60);
 #endif
