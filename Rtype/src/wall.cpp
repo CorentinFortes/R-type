@@ -19,16 +19,9 @@ wall::wall(Haze::Engine *engine, nlohmann::json data, int x, int y) : _jsonData(
     _entityWallBottom->addComponent(new Haze::HitboxDisplay());
     // _entityWallBottom->addComponent(new Haze::SplitSprite(*static_cast<Haze::Sprite *>(_entityWallBottom->getComponent("Sprite")),
     //      _sheet["x"], _sheet["y"], _sheet["width"], _sheet["height"]));
-
-    std::cout << "\n\n\nrun\n\n\n" << std::endl;
-    std::cout << "x: " << _sheet["x"] << std::endl;
-    std::cout << "y: " << _sheet["y"] << std::endl;
-    std::cout << "width: " << _sheet["width"] << std::endl;
-    std::cout << "height: " << _sheet["height"] << std::endl;
     _entityWallBottom->addComponent(new Haze::Animation({
             {_sheet["x"], _sheet["y"], _sheet["width"], _sheet["height"]}
         }, Haze::Animation::AnimationType::ONCE, true, 0.2));
-    std::cout << "\n\n\nrun\n\n\n" << std::endl;
     Haze::Collision::CollisionInfo colisionInfo;
     colisionInfo.type = Haze::Collision::LAMBDA;
     colisionInfo.tics = 1;
