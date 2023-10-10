@@ -23,7 +23,7 @@ protected:
                     network::message<protocol::Lobby> res = {{protocol::Lobby::data_channel, 0}};
                     res << _dataChannel->getEndpoint();
                     this->messageAllClient(res);
-                    Rtype rtype;
+                    Rtype rtype(this->_context);
                     rtype.run(_dataChannel);
                 }
                 break;

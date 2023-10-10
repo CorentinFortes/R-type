@@ -10,7 +10,7 @@
 #include "net_server.h"
 #include "data.h"
 
-Rtype::Rtype()
+Rtype::Rtype(asio::io_context &context) : network::data_channel<protocol::UDPProtocol>(context)
 {
     engine.init();
     std::ifstream inputFile("Rtype/SpritesMooves/ground.json");

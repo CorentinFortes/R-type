@@ -20,7 +20,7 @@
 // #include "GraphicClient.hpp"
 // #include "Component.hpp"
 
-class Rtype
+class Rtype : public network::data_channel<protocol::UDPProtocol>
 {
 private:
     Haze::Engine engine;
@@ -49,7 +49,7 @@ private:
     void moveBackground();
 
 public:
-    Rtype();
+    Rtype(asio::io_context &context);
     ~Rtype();
     void run(std::shared_ptr<network::data_channel<protocol::UDPProtocol>> _dataChannel);
     void moveUp(void *component);
@@ -57,3 +57,4 @@ public:
     void moveLeft(void *component);
     void moveRight(void *component);
 };
+
