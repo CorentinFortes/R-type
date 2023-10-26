@@ -20,11 +20,11 @@ void Player::build()
               << std::endl;
     _entity->addComponent(new Haze::Velocity(0, 0, 0.05));
     if (_id == 1)
-        _entity->addComponent(new Haze::Position(50, 300));
+        _entity->addComponent(new Haze::Position(40, 300));
     else if (_id == 2)
-        _entity->addComponent(new Haze::Position(450, 300));
-    _entity->addComponent(new Haze::Scale(3, 3));
-    _entity->addComponent(new Haze::Hitbox({{0, 0, 32, 14}}));
+        _entity->addComponent(new Haze::Position(730, 300));
+    _entity->addComponent(new Haze::Scale(2, 2));
+    _entity->addComponent(new Haze::Hitbox({{0, 0, 20, 50}}));
     _entity->addComponent(new Haze::OnKeyPressed(
             [this](int actor, std::vector<Haze::InputType> components) {
                 auto position = dynamic_cast<Haze::Position *>(_entity->getComponent("Position"));
