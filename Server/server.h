@@ -8,6 +8,7 @@
 #include "net_connection.h"
 #include "net_data_channel.h"
 #include "net_server.h"
+#include "Cocs-game.hpp"
 
 class server : public network::server_interface<protocol::lobby> {
 public:
@@ -18,5 +19,5 @@ protected:
     bool onClientConnection(std::shared_ptr<network::connection<protocol::lobby>> client) override;
 
 private:
-    std::unique_ptr<Rtype> _game = nullptr;
+    std::unique_ptr<Cocs_game> _game = nullptr;
 };

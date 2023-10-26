@@ -18,6 +18,16 @@ Cocs_game::Cocs_game(asio::io_context &context)
     _engine.setInfoInputs({std::vector<Haze::InputType>(), std::vector<Haze::InputType>(), Haze::MouseType::NOTHING, 0, 0}, 2);
 }
 
+uint32_t Cocs_game::getPlayerID(const udp::endpoint &endpoint)
+{
+    for (auto &player: _players) {
+        if (player->_remote && player->_remote->endpoint == endpoint) {
+            return player->_id;
+        }
+    }
+    return 0;
+}
+
 Cocs_game::~Cocs_game()
 {
 }
@@ -31,6 +41,19 @@ void Cocs_game::update()
 {
 }
 
+void Cocs_game::stop()
+{
+    _running = false;
+}
+
+void Cocs_game::sendEverything(udp::endpoint &to)
+{
+    for (auto &player: _players) {
+        if (player->_entity) {
+            player->send();
+        }
+    }
+}
 
 void Cocs_game::checkInactiveClients()
 {
@@ -104,6 +127,10 @@ void Cocs_game::onReceive(udp::endpoint from, network::datagram<protocol::data> 
     }
 }
 
+void Cocs_game::createMap()
+{
+}
+
 void Cocs_game::start()
 {
     _running = true;
@@ -133,4 +160,9 @@ void Cocs_game::start()
         // Send all entities update to clients
         sendUpdate();
     }
+}
+
+asio::ip::udp::endpoint Cocs_game::getEndpoint() const
+{
+    return _channel.getEndpoint();
 }

@@ -15,7 +15,7 @@ void server::onMessage(std::shared_ptr<network::connection<lobby>> from, network
     switch (msg.header.id) {
         case lobby::start_room: {
             if (!_game) {
-                _game = std::make_unique<Rtype>(_context);
+                _game = std::make_unique<Cocs_game>(_context);
                 network::message<lobby> res(lobby::data_channel);
                 res << _game->getEndpoint();
                 this->messageAllClient(res);
