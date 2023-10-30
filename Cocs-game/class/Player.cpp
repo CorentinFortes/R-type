@@ -28,7 +28,6 @@ void Player::build()
     _entity->addComponent(new Haze::OnKeyPressed(
             [this](int actor, std::vector<Haze::InputType> components) {
                 auto position = dynamic_cast<Haze::Position *>(_entity->getComponent("Position"));
-
                 for (auto &component: components) {
                     if (component == Haze::InputType::KEY_Z) {
                         position->y += -10;
@@ -43,7 +42,7 @@ void Player::build()
     std::map<std::string, Haze::Collision::CollisionInfo> mapCollision;
     mapCollision["ball"] = {
             Haze::Collision::LAMBDA,
-            0.1,
+            0.3,
             [this](int a, int b) {
                 if (!_entity) {
                     return;
@@ -73,6 +72,12 @@ void Player::sendUpdate()
     auto pos = dynamic_cast<Haze::Position *>(_entity->getComponent("Position"));
     _channel.sendGroup(cocs_game::message::addComponent(_entity->getId(), "Position", new Haze::PositionData{pos->x, pos->y}, sizeof(Haze::PositionData)));
     std::cout << "send update player" << std::endl;
+}
+
+void Player::changeScore()
+{
+    _score++;
+    std::cout << "Player " << _id << " score: " << _score << std::endl;
 }
 
 void Player::update()

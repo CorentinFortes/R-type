@@ -23,7 +23,7 @@ class Ball {
         void build();
         void send();
         void sendUpdate();
-        void update();
+        int update();
     public:
         uint32_t _id = 0;
         Haze::Entity *_entity = nullptr;

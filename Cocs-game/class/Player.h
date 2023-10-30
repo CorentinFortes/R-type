@@ -27,6 +27,7 @@ public:
     void build();
     void update();
     void send();
+    void changeScore();
     void sendUpdate();
 
 public:

@@ -44,8 +44,14 @@ void Cocs_game::update()
         if (player->_entity)
             player->update();
     }
-    if (_ball->_entity)
-        _ball->update();
+    if (_ball->_entity) {
+        int player = _ball->update();
+        if (player == 1) {
+            _players[0]->changeScore();
+        } else if (player == 2) {
+            _players[1]->changeScore();
+        }
+    }
 }
 
 void Cocs_game::stop()

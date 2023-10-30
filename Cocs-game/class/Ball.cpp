@@ -15,7 +15,7 @@ Ball::~Ball()
 {
 }
 
-void Ball::update()
+int Ball::update()
 {
     auto pos = dynamic_cast<Haze::Position *>(_entity->getComponent("Position"));
     auto velocity = dynamic_cast<Haze::Velocity *>(_entity->getComponent("Velocity"));
@@ -28,11 +28,19 @@ void Ball::update()
         _entity->addComponent(new Haze::Velocity(velocity->x, velocity->y * -1, velocity->tick));
         send();
     }
-    if (pos->x <= 0 || pos->y >= 780) {
+    if (pos->x <= 0) {
         _entity->addComponent(new Haze::Velocity(5, 3, 0.05));
         _entity->addComponent(new Haze::Position(390, 190));
         send();
+        return (1);
     }
+    if (pos->x >= 780) {
+        _entity->addComponent(new Haze::Velocity(-5, 3, 0.05));
+        _entity->addComponent(new Haze::Position(390, 190));
+        send();
+        return (2);
+    }
+    return (0);
 }
 
 void Ball::sendUpdate()
@@ -62,7 +70,7 @@ void Ball::build()
               << _entity->getId()
               << "] ball Created"
               << std::endl;
-    _entity->addComponent(new Haze::Velocity(5, 1, 0.05));
+    _entity->addComponent(new Haze::Velocity(5, 3, 0.05));
     _entity->addComponent(new Haze::Position(390, 190));
     _entity->addComponent(new Haze::Scale(1, 1));
     _entity->addComponent(new Haze::Hitbox({{0, 0, 20, 20}}));
@@ -70,7 +78,7 @@ void Ball::build()
     std::map<std::string, Haze::Collision::CollisionInfo> mapCollision;
     mapCollision["player"] = {
             Haze::Collision::LAMBDA,
-            0.1,
+            0.3,
             [this](int a, int b) {
                 std::cout << "COLLISION" << std::endl;
                 if (!_entity) {
@@ -79,7 +87,9 @@ void Ball::build()
                 auto velocity = dynamic_cast<Haze::Velocity *>(_entity->getComponent("Velocity"));
                 auto pos = dynamic_cast<Haze::Position *>(_entity->getComponent("Position"));
                 auto pos_p = dynamic_cast<Haze::Position *>(_engine.getEntity(b)->getComponent("Position"));
-                _entity->addComponent(new Haze::Velocity(velocity->x * -1, velocity->y, velocity->tick * 0.9));
+
+                velocity->x = velocity->x * -1 + (((pos->x + 10)) - ( pos_p->x + 25)) / 10;
+                _entity->addComponent(new Haze::Velocity(velocity->x, velocity->y, velocity->tick * 0.9));
                 send();
             }};
     _entity->addComponent(new Haze::Collision("ball", mapCollision));
