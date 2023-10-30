@@ -12,7 +12,11 @@
 #include "net_server.h"
 #include "protocol.h"
 #include "Player.h"
+#include "Ball.h"
 #include "Cooldown.h"
+#include <cstdlib>
+#include <ctime>
+#include <fstream>
 
 class Cocs_game
 {
@@ -41,5 +45,7 @@ private:
     bool _running;
     std::vector<Haze::Entity *> _entities;
     std::vector<std::unique_ptr<Player>> _players;
+    std::unique_ptr<Player> player;
+    std::unique_ptr<Ball> _ball;
 };
 

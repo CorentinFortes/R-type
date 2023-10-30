@@ -41,6 +41,14 @@ void Player::build()
             },
             _id));
     std::map<std::string, Haze::Collision::CollisionInfo> mapCollision;
+    mapCollision["ball"] = {
+            Haze::Collision::LAMBDA,
+            0.1,
+            [this](int a, int b) {
+                if (!_entity) {
+                    return;
+                }
+            }};
     _entity->addComponent(new Haze::Collision("player", mapCollision));
     send();
 }

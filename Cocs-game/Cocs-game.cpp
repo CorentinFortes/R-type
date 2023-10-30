@@ -34,11 +34,18 @@ Cocs_game::~Cocs_game()
 
 void Cocs_game::sendUpdate()
 {
+    if (_ball->_entity)
+        _ball->sendUpdate();
 }
-
 
 void Cocs_game::update()
 {
+    for (auto &player: _players) {
+        if (player->_entity)
+            player->update();
+    }
+    if (_ball->_entity)
+        _ball->update();
 }
 
 void Cocs_game::stop()
@@ -53,6 +60,8 @@ void Cocs_game::sendEverything(udp::endpoint &to)
             player->send();
         }
     }
+    if (_ball->_entity)
+        _ball->send();
 }
 
 void Cocs_game::checkInactiveClients()
@@ -129,6 +138,8 @@ void Cocs_game::onReceive(udp::endpoint from, network::datagram<protocol::data> 
 
 void Cocs_game::createMap()
 {
+    _ball = std::make_unique<Ball>(_engine, _channel);
+    _ball->build();
 }
 
 void Cocs_game::start()

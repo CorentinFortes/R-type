@@ -2,9 +2,7 @@
 // Created by erwan on 10/15/23.
 //
 
-#ifndef D2B97CFD_7B7F_4CA9_BEC5_C131DC486E47
-#define D2B97CFD_7B7F_4CA9_BEC5_C131DC486E47
-
+#pragma once
 
 #include "../protocol.h"
 #include "Cooldown.h"
@@ -38,11 +36,7 @@ public:
     uint32_t _id = 0;
     uint32_t _score = 0;
 
-
 private:
     Haze::Engine &_engine;
     network::data_channel<protocol::data> &_channel;
 };
-
-
-#endif /* D2B97CFD_7B7F_4CA9_BEC5_C131DC486E47 */

@@ -13,6 +13,8 @@ set(
         class/Player.h
         class/Cooldown.cpp
         class/Cooldown.h
+        class/Ball.h
+        class/Ball.cpp
 )
 
 add_library(${PROJECT_NAME} STATIC ${SOURCES})

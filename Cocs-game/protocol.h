@@ -8,6 +8,7 @@
 
 #include "data.h"
 #include "net_datagram.h"
+#include <iostream>
 
 namespace cocs_game {
     class message {
