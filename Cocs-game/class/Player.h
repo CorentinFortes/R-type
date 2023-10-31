@@ -11,6 +11,7 @@
 #include <haze-core.hpp>
 #include <net_data_channel.h>
 
+
 using namespace asio::ip;
 using namespace std::chrono_literals;
 
@@ -33,9 +34,11 @@ public:
 public:
     std::unique_ptr<Remote> _remote = nullptr;
     Haze::Entity *_entity = nullptr;
+    Haze::Entity *_scoreEntity = nullptr;
 
     uint32_t _id = 0;
     uint32_t _score = 0;
+    // std::unique_ptr<element::TextInput> _scoreText;
 
 private:
     Haze::Engine &_engine;

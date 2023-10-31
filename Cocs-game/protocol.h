@@ -2,9 +2,7 @@
 // Created by erwan on 10/13/23.
 //
 
-#ifndef FB6C241F_0ADE_4005_AA95_BBAC0C45A39E
-#define FB6C241F_0ADE_4005_AA95_BBAC0C45A39E
-
+#pragma once
 
 #include "data.h"
 #include "net_datagram.h"
@@ -53,6 +51,3 @@ namespace cocs_game {
         };
     };
 }
-
-
-#endif /* FB6C241F_0ADE_4005_AA95_BBAC0C45A39E */

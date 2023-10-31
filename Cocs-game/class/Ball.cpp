@@ -89,7 +89,7 @@ void Ball::build()
                 auto pos_p = dynamic_cast<Haze::Position *>(_engine.getEntity(b)->getComponent("Position"));
 
                 velocity->x = velocity->x * -1 + (((pos->x + 10)) - ( pos_p->x + 25)) / 10;
-                _entity->addComponent(new Haze::Velocity(velocity->x, velocity->y, velocity->tick * 0.9));
+                _entity->addComponent(new Haze::Velocity(velocity->x, velocity->y, velocity->tick * 0.95));
                 send();
             }};
     _entity->addComponent(new Haze::Collision("ball", mapCollision));

@@ -9,20 +9,23 @@
 Player::Player(Haze::Engine &engine, network::data_channel<protocol::data> &channel, uint32_t id)
     : _engine(engine), _channel(channel), _id(id)
 {
+    // _scoreText = std::make_unique<element::TextInput>(engine, "0");
 }
 
 void Player::build()
 {
     _entity = _engine.createEntity();
+    _scoreEntity = _engine.createEntity();
     std::cout << "["
               << _entity->getId()
               << "] Player Created"
               << std::endl;
     _entity->addComponent(new Haze::Velocity(0, 0, 0.05));
-    if (_id == 1)
+    if (_id == 1) {
         _entity->addComponent(new Haze::Position(40, 300));
-    else if (_id == 2)
+    } else if (_id == 2) {
         _entity->addComponent(new Haze::Position(730, 300));
+    }
     _entity->addComponent(new Haze::Scale(2, 2));
     _entity->addComponent(new Haze::Hitbox({{0, 0, 20, 50}}));
     _entity->addComponent(new Haze::OnKeyPressed(
@@ -49,6 +52,7 @@ void Player::build()
                 }
             }};
     _entity->addComponent(new Haze::Collision("player", mapCollision));
+    // _scoreText->getEntity().addComponent(new Haze::Position(400, 50));
     send();
 }
 
@@ -65,6 +69,17 @@ void Player::send()
     _channel.sendGroup(cocs_game::message::addComponent(_entity->getId(), "Hitbox", new Haze::HitboxData{hitbox}, sizeof(Haze::HitboxData)));
     _channel.sendGroup(cocs_game::message::addComponent(_entity->getId(), "HitboxDisplay", nullptr, 0));
     _channel.sendGroup(cocs_game::message::addComponent(_entity->getId(), "Sprite", new Haze::SpriteData{"assets/sprites/player_pong.png"}, sizeof(Haze::SpriteData)));
+
+    _channel.sendGroup(cocs_game::message::createEntity(_scoreEntity->getId()));
+    if (_id == 1) {
+        _channel.sendGroup(cocs_game::message::addComponent(_scoreEntity->getId(), "Position", new Haze::PositionData{600, 50}, sizeof(Haze::PositionData)));
+    } else if (_id == 2) {
+        _channel.sendGroup(cocs_game::message::addComponent(_scoreEntity->getId(), "Position", new Haze::PositionData{200, 50}, sizeof(Haze::PositionData)));
+    }
+    _channel.sendGroup(cocs_game::message::addComponent(_scoreEntity->getId(), "Scale", new Haze::ScaleData{1, 1}, sizeof(Haze::ScaleData)));
+    auto txt = new Haze::TextData{"", 255, 255, 255, 255, "NotoMono.ttf"};
+    std::strcat(txt->text, std::to_string(_score).data());
+    _channel.sendGroup(cocs_game::message::addComponent(_scoreEntity->getId(), "Text", txt, sizeof(Haze::TextData)));
 }
 
 void Player::sendUpdate()
@@ -77,6 +92,7 @@ void Player::sendUpdate()
 void Player::changeScore()
 {
     _score++;
+    send();
     std::cout << "Player " << _id << " score: " << _score << std::endl;
 }
 
