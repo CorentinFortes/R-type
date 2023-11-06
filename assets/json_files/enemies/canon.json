@@ -1,0 +1,40 @@
+{
+  "type": 3,
+  "damage": 20,
+  "life": 50,
+  "shot_type": 3,
+  "explosion_type": 2,
+  "path_sprite": "assets/sprites/r-typesheet12.gif",
+  "sound_spawn": "assets/sounds/spawn_1.wav",
+  "sound_damage": "assets/sounds/damage_1.wav",
+  "sound_death": "assets/sounds/death_1.wav",
+  "hitbox": {
+    "x": 2,
+    "y": 2,
+    "height": 14,
+    "width": 13
+  },
+  "fly": false,
+  "animation_tics": 0.1,
+  "animation_type": "loop",
+  "animation": [
+    {
+      "x": 0,
+      "y": 0,
+      "height": 18,
+      "width": 17
+    },
+    {
+      "x": 17,
+      "y": 0,
+      "height": 18,
+      "width": 17
+    },
+    {
+      "x": 34,
+      "y": 0,
+      "height": 18,
+      "width": 17
+    }
+  ]
+}

@@ -39,6 +39,15 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(sfml)
 
+# Fetching sdl2
+FetchContent_Declare(
+        sdl2
+        GIT_REPOSITORY https://github.com/libsdl-org/SDL.git
+        GIT_TAG release-2.28.4
+)
+
+FetchContent_MakeAvailable(sdl2)
+
 add_subdirectory(Protocols)
 add_subdirectory(Network)
 add_subdirectory(Haze)

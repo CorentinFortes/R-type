@@ -4,25 +4,32 @@
 
 #pragma once
 
+#include "Element.h"
 #include "Engine.hpp"
 #include "haze-core.hpp"
 #include "haze-graphics.hpp"
 
-namespace element {
-    class TextInput {
-    public:
-        explicit TextInput(Haze::Engine &engine, std::string placeHolder);
-        void setValue(const std::string &val);
-        [[nodiscard]] Haze::Entity &getEntity() const;
-        [[nodiscard]] const std::string &getValue() const;
-        void setFocus(bool isFocused);
+class TextInput : public Element {
+public:
+    explicit TextInput(Haze::Engine &engine, std::string placeholder, AxisPair position = {0, 0}, AxisPair scale = {1, 1});
+    void build() override;
+    void update() override;
+    void setValue(const std::string &newValue);
+    void setPlaceholder(const std::string &newPlaceholder);
+    void setHitbox(int x, int y, int width, int height);
 
-    private:
-        Haze::Engine &_engine;
-        Haze::Entity *_entity;
+    [[nodiscard]] const std::string &getValue() const;
 
-        bool _isFocused = false;
-        std::string _placeHolder;
-        std::string _value;
+    bool _focus = false;
+    std::function<void(const std::string &)> onSubmit = [this](const std::string &) {
+        std::cout << "SUBMIT: " << _value << std::endl;
     };
-}// namespace element
+
+    int limit = -1;
+
+private:
+    std::string _value;
+    std::string _placeholder;
+    std::string _fontFile = "NotoMono.ttf";
+    Haze::Text::colorHaze _fontColor = Haze::Text::WHITE;
+};

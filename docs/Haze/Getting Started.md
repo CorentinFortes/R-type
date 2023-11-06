@@ -1,15 +1,14 @@
-# Haze
+# Getting Started
 
 ## ECS
 The Haze engine is a pure [ECS](ECS.md) with some little tweaks and additions.
 An ECS architecture has many benefits for a game engine and that is why we chose to use it (benefits described at [ECS](ECS.md))
 
 ## Architecture
-![architecture](../../assets/architecture.png)
+![architecture](../assets/architecture.png)
 
 This is the full architecture of **Haze**.
 As you can see we have the basics of an **ECS** such as Components, Entity and Systems.
-
 If you want the technical documentation of these parts of Haze you can learn more at  [ComponentsGfx](ComponentGfx%20Technical.md), [ComponentsCore](ComponentCore%20Technical.md), [Entities](Entity%20Technical.md) and [Systems](System.md).
 
 ### Pipelines
@@ -17,6 +16,7 @@ We have also added [Pipelines](Pipeline.md) that allows to group systems hence a
 
 ### Graphic Encapsulation
 [Graphic encapsulation](Graphic_encapsulation.md) is also something that we have decided make in our engine. This addition makes it easy to change the graphic library of Haze.
+These libraries are loaded from dynamic libraries and **SFML** and **SDL2** are currently supported in Haze.
 
 ### ComponentArray and Entity
 Finally that entirety of the components of the engine is stored in a sigle class [ComponentArray](ComponentArray.md) which make the iteration of the component much faster and easier.
@@ -32,7 +32,6 @@ to include with
 ```
 
 This library gather everything related to **basic** engine working such as **positions**, **velocity** or **collisions**.
-
 This part of Haze doesn't require any external library to be functional and **can be imported in a server**.
 
 ### haze-graphic
@@ -42,5 +41,4 @@ to include with
 ```
 
 This library gather everything related to the graphic part of the engine such as **displaying, getting inputs or playing audio**.
-
 This part of Haze require the use of **SFML** to be functional and **cannot be imported in a server nor any system with no SFML install**.

@@ -36,17 +36,23 @@ namespace Haze {
         float time;
         float amplitude;
         float frequency;
+        float offset;
     };
 
     struct CircleVelocityData {
         float x;
         float time;
         float radius;
+        float offset;
     };
 
     struct MoveData {
         float x;
         float y;
+    };
+
+    struct InterpolationData {
+        int framerate;
     };
 
     struct HealthData {
@@ -60,6 +66,12 @@ namespace Haze {
     struct CollisionData {
         std::string scene;
         std::map<std::string, Collision::CollisionInfo> behavior;
+    };
+
+    struct BulletDropData {
+        float strength;
+        float angle;
+        float time;
     };
 
     struct HitboxData {
@@ -90,6 +102,10 @@ namespace Haze {
 
 #ifdef USE_SFML
     struct AnimationData {
+        char path[128];
+    };
+
+    struct AudioData {
         char path[128];
     };
 

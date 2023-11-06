@@ -4,34 +4,55 @@
 
 #pragma once
 
-#include "Elements/Login.h"
+#include "Elements/Element.h"
 #include "data.h"
-#include "game.h"
 #include "haze-core.hpp"
 #include "haze-graphics.hpp"
 #include "lobby.h"
 #include "net_client.h"
 #include "net_data_channel.h"
+#include "spectator.h"
 #include <iostream>
 
 class client : public network::client_interface<protocol::lobby> {
 public:
-    client();
-    ~client() override;
+    client(int framerate = 60, int lib = 0)
+        : _engine(framerate, lib)
+    {
+    }
+    ~client() override = default;
 
 public:
     void build();
     void start();
+    void receive();
+    void emit();
+
+private:
+    enum class state {
+        ok,
+        w_cr_room,
+        w_rooms,
+        w_room,
+        w_join,
+        w_start,
+        in_game,
+    };
+
+    void handleOk(network::message<lobby> &msg);
+    void handleKo(network::message<lobby> &msg);
+    void handleNewChat(network::message<lobby> &msg);
+    void handleDataSocket(network::message<lobby> &msg);
 
 private:
     Haze::Engine _engine;
-    bool _isBuild = false;
-    bool _inGame = false;
+    bool _build = false;
 
-    std::unique_ptr<game> _game = nullptr;
-
-    // Haze GFX components
     Haze::Entity *_window = nullptr;
-    std::unique_ptr<element::Login> _login = nullptr;
-    std::unique_ptr<element::Button> _startButton = nullptr;
+    std::map<std::string, std::shared_ptr<Element>> _elements;
+    std::string _selected;
+
+    std::unique_ptr<spectator> _spectator;
+    state _state = state::ok;
+    uint32_t _currentLobby = 0;
 };

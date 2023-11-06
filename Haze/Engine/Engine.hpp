@@ -6,24 +6,22 @@
 */
 
 #pragma once
-#include <iostream>
-#include <vector>
-#include <map>
-#include <memory>
-#include <chrono>
-#include <mutex>
-#include <thread>
-#include "Entity.hpp"
 #include "ComponentList.hpp"
+#include "Entity.hpp"
 #include "IPipeline.hpp"
 #include "protocol.hpp"
+#include <chrono>
+#include <iostream>
+#include <map>
+#include <memory>
+#include <mutex>
+#include <thread>
+#include <vector>
 
-namespace Haze
-{
-    class Engine
-    {
+namespace Haze {
+    class Engine {
     public:
-        Engine(int framerate);
+        Engine(int framerate, int lib = 0);
         ~Engine();
         void init();
         void update();
@@ -33,7 +31,11 @@ namespace Haze
         void removeEntity(Entity *entity);
         bool isOpen();
         void setInfoInputs(info_inputs info, size_t id);
+
+        int getFramerate() { return _framerate; }
+
         ComponentList *getComponentList() { return _componentList; }
+
         std::vector<info_inputs> *getInfoInputs() { return &_infoInputs; }
 
     protected:
@@ -47,4 +49,4 @@ namespace Haze
     };
 
     void ticThread(Haze::Engine *engine);
-}
+}// namespace Haze
